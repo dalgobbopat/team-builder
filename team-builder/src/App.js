@@ -1,6 +1,25 @@
 import React, {useState} from 'react';
 import { v4 as uuid} from 'uuid';
 import './App.css';
+import Form from './Form'
+import Card from './Card'
+import styled from 'styled-components';
+
+
+
+const Container = styled.div`
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    
+  `
+const Title = styled.div`
+  background-color: grey;
+  font-size: 5rem;
+  text-align: center;
+  `
 
 const myTeam = [
   { id: uuid(), fname: 'Patrick', lname: 'Dal Gobbo', email:'dalgobbojuan@gmail.com', role:'Software Engineer'},
@@ -35,52 +54,24 @@ function App() {
     setTeam([...team, newTeamMember])
   }
   return (
+    
     <div className="App">
- <h1>Goat Team 🐐</h1>
+      
+ <Title>Goat Team 🐐</Title>
  <h3>Join below👽</h3>
- <form onSubmit={onFormSubmit}>
-   <label> First Name
-      <input
-        onChange={onInputChange}
-        value={formValues.fname}
-        name='fname'
-        type='text'
-      />
-   </label>
-
-   <label> Last Name
-      <input
-        onChange={onInputChange}
-        value={formValues.lname}
-        name='lname'
-        type='text'
-      />
-   </label>
-
-   <label> Email
-      <input
-        onChange={onInputChange}
-        value={formValues.email}
-        name='email'
-        type='text'
-      />
-   </label>
-
-   <label> Role
-      <input
-        onChange={onInputChange}
-        value={formValues.role}
-        name='role'
-        type='text'
-      />
-   </label>
-
-   <input type='submit' />
- </form>
+ <Form
+    onInputChange ={onInputChange}
+    onFormSubmit = {onFormSubmit}
+    formValues = {formValues}
+    />
+    <Container>
  {
-   team.map(fr => <div key={fr.id}> Name:{fr.fname} {fr.lname}<br/> @:{fr.email} <br/> Role:{fr.role}</div>)
+   team.map(fr => <Card fname={fr.fname} lname={fr.lname} email={fr.email} role={fr.role}/>)
  }
+ </Container>
+ 
     </div>
+    
   )
 }
 
